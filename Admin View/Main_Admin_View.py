@@ -203,7 +203,7 @@ with logo_column:
         st.markdown(hover_style, unsafe_allow_html=True)
 
         st.markdown(
-            '<div style="text-align: left;"><img src="https://i.postimg.cc/bJftR7zK/qr-code.png" class="logo" width="100"></div>',
+            '<div style="text-align: left;"><img src="https://i.postimg.cc/sgD9f7JH/Opti-Moduls.png" class="logo" width="100"></div>',
             unsafe_allow_html=True
         )
     else:
