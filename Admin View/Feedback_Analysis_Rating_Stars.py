@@ -42,6 +42,7 @@ def run_feedback_rating_stars(language_index,feedbacks):
         st.write('')
         st.write('')
 
+    # Ein Linien-Diagramm erstellen
     def create_line_chart(data, x, y, z, title):
         import plotly.express as px
 

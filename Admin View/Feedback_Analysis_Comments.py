@@ -17,11 +17,13 @@ def run_feedback_comments(language_index,feedbacks):
 
     try:
 
+        # feedbacks nach dem Datum absteigend sortieren
         feedbacks = feedbacks.sort_values(by=['date','time'],
                                    ascending=[False,False])
 
         df_length = len(feedbacks['date'])
 
+        # Header definieren
         date_col, time_col, comment_col, rating_col, nps_col, sentiment_col, answers_col = st.columns([1,1,2,1,1.5,0.5,1])
         with date_col:
             st.markdown(f"**Datum**")
@@ -47,6 +49,8 @@ def run_feedback_comments(language_index,feedbacks):
         #  Eine horizontale 1-Pixel Linie hinzufügen
         draw_line(1)
 
+
+        # Feedback-Werte auf der Maske ausgeben
         counter = 0
         for index, row in feedbacks.iterrows():
             counter = counter + 1

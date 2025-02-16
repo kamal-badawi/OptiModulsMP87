@@ -7,6 +7,7 @@ def run_data_preview_columns_info(language_index,data_type):
     def draw_line(groesse):
         st.markdown(f"<hr style='border: {groesse}px solid black;'>", unsafe_allow_html=True)
 
+    # Lade die Daten aus der Datenbank
     @st.cache_data
     def get_sql_data(database_name, table_name):
         connection = sqlite3.connect(rf'../Databases/{database_name}.db')
@@ -16,8 +17,11 @@ def run_data_preview_columns_info(language_index,data_type):
 
         return data
 
+    # Daten aus der Datenbank laden und in einer DataFrame speichern
     data = get_sql_data('Columns Info Database',
                         'columns_info_data')
+
+    # Daten auf der Maske ausgeben
     st.dataframe(data, use_container_width=True)
 
     #  Eine horizontale drei Pixel Linie hinzufügen

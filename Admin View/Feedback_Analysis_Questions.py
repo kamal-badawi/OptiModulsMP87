@@ -76,7 +76,7 @@ def run_feedback_questions(language_index,feedbacks,selected_question_analysis_o
         # Darstellung des Diagramms mit Streamlit
         st.plotly_chart(fig, use_container_width=True)
 
-
+    # Ein Linien-Diagramm erstellen
     def create_line_chart(data, x, y, z, title):
         import plotly.express as px
 

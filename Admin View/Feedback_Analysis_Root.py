@@ -40,7 +40,7 @@ def run_feedback_analysis_root(language_index,title):
                 'id' 'date' 'time' 'count_of_feedback_stars' 'feedback_text' 'sentiment_text' 'sentiment_probability' 'nps_score' 'app_support_subjects' 'forecast_accuracy' 'strengths_awareness' 'strength_tips_effectiveness' 'subject_selection_ease' 'subject_relevance' 'career_match_helpfulness' 'ui_evaluation' 'navigation_ease' 'feature_gap' 'decision_influence' 'subject_career_link' 'recommendation_likelihood' 'forecast_reliability' 'tips_personalization_importance'],
             )
 
-    # Lade die min Date
+    # Lade das kleinste Datum
     def load_min_date():
         try:
             connection = sqlite3.connect(r'../Databases/Students Feedbacks Database.db')

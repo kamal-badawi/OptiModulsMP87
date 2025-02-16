@@ -7,7 +7,7 @@ def run_model_evaluation_grades_prediction(language_index):
     def draw_line(groesse):
         st.markdown(f"<hr style='border: {groesse}px solid black;'>", unsafe_allow_html=True)
 
-
+    # Lade die Test- und Prediction-Daten
     @st.cache_data
     def get_data(path):
         data = pd.read_excel(path)
@@ -43,7 +43,7 @@ def run_model_evaluation_grades_prediction(language_index):
     # y_test laden
     y_test = get_data(r'../Modellbewertung/Notenprognose/y_test.xlsx')
 
-    # y_test laden
+    # y_pred laden
     y_pred = get_data(r'../Modellbewertung/Notenprognose/y_pred.xlsx')
 
     # Berechnung der Metriken
@@ -51,6 +51,7 @@ def run_model_evaluation_grades_prediction(language_index):
     mae = mean_absolute_error(y_test, y_pred)
     r2 = r2_score(y_test, y_pred)
 
+    # Visualisierung der Metriken
     mse_col, mae_col, r2_col = st.columns(3)
     with mse_col:
         mes_explaination_text = 'A lower MSE indicates better model performance'

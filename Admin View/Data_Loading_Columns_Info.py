@@ -33,10 +33,12 @@ def run_data_loading_columns_info(language_index,data_type):
 
         return connection
 
+    # Streamlit - Lade eine Excel-Datei
     upload_file_load_columns_info = st.file_uploader('Lade die Spalteninformationen hoch',
                                                          type=['xlsx', 'xls'],
                                                          key='upload_file_load_columns_info')
 
+    # wenn man eine Excel-Datei ausgewählt hat
     if upload_file_load_columns_info:
         # Eine horizontale zwei Pixel Linie hinzufügen
         draw_line(2)
@@ -46,6 +48,7 @@ def run_data_loading_columns_info(language_index,data_type):
     #  Eine horizontale drei Pixel Linie hinzufügen
     draw_line(3)
 
+    # wenn man den Button klickt
     if st.button("Daten in die Datenbank hochladen"):
 
         if upload_file_load_columns_info:

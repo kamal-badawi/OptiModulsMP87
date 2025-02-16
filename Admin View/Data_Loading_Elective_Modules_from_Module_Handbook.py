@@ -46,11 +46,12 @@ def run_data_loading_elective_modules_from_module_handbook(language_index,data_t
 
 
 
-
+    # Streamlit - Lade eine Excel-Datei
     upload_file_load_elective_modules = st.file_uploader('Lade das Modulhandbuch (Wahlpflichtfächer) hoch',
                                                          type=['xlsx','xls'],
                                                          key='upload_file_Load_Elective_Modules')
 
+    # wenn man eine Excel-Datei ausgewählt hat
     if upload_file_load_elective_modules:
         # Eine horizontale zwei Pixel Linie hinzufügen
         draw_line(2)
@@ -61,6 +62,7 @@ def run_data_loading_elective_modules_from_module_handbook(language_index,data_t
     #  Eine horizontale drei Pixel Linie hinzufügen
     draw_line(3)
 
+    # wenn man den Button klickt
     if st.button("Daten in die Datenbank hochladen"):
 
         if upload_file_load_elective_modules:

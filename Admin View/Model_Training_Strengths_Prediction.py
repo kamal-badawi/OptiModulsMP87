@@ -21,8 +21,8 @@ def run_model_training_strenghts_prediction(language_index):
     def draw_line(groesse):
         st.markdown(f"<hr style='border: {groesse}px solid black;'>", unsafe_allow_html=True)
 
-    st.cache
-
+    # Lade die Spalten-Infos-Daten
+    @st.cache_data
     def get_columns_info():
         connection_columns_info = sqlite3.connect(r'../Databases/Columns Info Database.db')
 
@@ -36,8 +36,9 @@ def run_model_training_strenghts_prediction(language_index):
             columns_info_data[columns_info_data['Beschreibung'] == 'Wahlpflichtmodul']['Spalte'])
         return strenghts_info, mandatory_modules_info, elective_modules_info
 
-    st.cache
 
+    # Lade die Training-Daten
+    @st.cache_data
     def get_training_data():
         connection_training_model = sqlite3.connect(r'../Databases/Model Training Database.db')
         training_model_data = pd.read_sql('Select * from model_training_data', connection_training_model)
@@ -166,7 +167,7 @@ def run_model_training_strenghts_prediction(language_index):
 
     st.dataframe(y)
 
-    # Eine horizontale  drei Linie hinzufügen
+    # Eine horizontale drei Pixel Linie hinzufügen
     draw_line(3)
 
     Process_Button_Styling.run_process_button_style()

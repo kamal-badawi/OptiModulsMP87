@@ -88,12 +88,12 @@ def run_data_loading_model_training_data(language_index,data_type):
 
         return connection
 
-
-
+    # Streamlit - Lade eine Excel-Datei
     upload_file_load_model_training_data = st.file_uploader('Lade die Training Daten hoch',
                                                          type=['xlsx', 'xls'],
                                                          key='upload_file_load_model_training_data')
 
+    # wenn man eine Excel-Datei ausgewählt hat
     if upload_file_load_model_training_data:
         # Eine horizontale zwei Pixel Linie hinzufügen
         draw_line(2)
@@ -103,6 +103,7 @@ def run_data_loading_model_training_data(language_index,data_type):
     #  Eine horizontale drei Pixel Linie hinzufügen
     draw_line(3)
 
+    # wenn man den Button klickt
     if st.button("Daten in die Datenbank hochladen"):
 
         if upload_file_load_model_training_data:

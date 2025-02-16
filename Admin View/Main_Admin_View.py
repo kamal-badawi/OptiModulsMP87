@@ -6,7 +6,7 @@ import Model_Evaluation_Root
 import Model_Training_Root
 import Data_Preview_Root
 
-
+# Header-Werte mit Übersetzungen
 translations_main = {
     0: ["Language", "Sprache", "Lingua", "Langue", "Idioma", "Idioma", "Språk", "Språk", "Sprog", "Język", "Язык",
         "Мова"],
@@ -38,7 +38,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-
+# Speichere die Sprache in der Session
 if 'language_index' not in st.session_state:
     st.session_state.language_index = 0
 
@@ -111,6 +111,7 @@ options = {
     "show_sidebar": False,
 }
 
+# Header Werte in der ausgewählten Sprache
 pages = [
         f'{translations_main.get(1)[language_index]}',
         f'{translations_main.get(2)[language_index]}',
@@ -120,8 +121,6 @@ pages = [
 
          ]
 
-
-# navigation_bar_top
 
 
 # Suche den Index des ausgewählten Begriffs in den Übersetzungen
@@ -140,7 +139,7 @@ navigation_bar_top = st_navbar(pages=pages,
 
 ############
 
-# berechne die Index der ausgewählten Sprache
+# berechne den Index der ausgewählten Sprache
 language_dict = {
     'English': 0,
     'Deutsch': 1,
@@ -217,7 +216,7 @@ if st.session_state.language_index != language_dict.get(selected_language):
     st.experimental_rerun()
 
 
-# Session State überprüfen und neu laden
+# Session State (language_value) überprüfen und neu laden
 if 'language_value' not in st.session_state:
     st.session_state.language_value = selected_language
 
@@ -225,24 +224,13 @@ if st.session_state.language_value != selected_language:
     st.session_state.language_value = selected_language
     st.experimental_rerun()
 
-# Session State überprüfen und neu laden
+# Session State (top_nav_value) überprüfen und neu laden
 if 'top_nav_value' not in st.session_state:
     st.session_state.top_nav_value = str(navigation_bar_top)
 
 if st.session_state.top_nav_value != str(navigation_bar_top):
     st.session_state.top_nav_value = str(navigation_bar_top)
     st.experimental_rerun()
-
-
-
-
-
-############
-
-
-
-
-
 
 
 

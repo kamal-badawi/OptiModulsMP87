@@ -61,10 +61,13 @@ def run_data_loading_student_mandatory_modules_grades_data(language_index,data_t
 
         return connection
 
+    # Streamlit - Lade eine Excel-Datei
     upload_file_load_mandatory_modules_grades = st.file_uploader('Lade die Pflichtfäcehrnoten hoch',
                                                      type=['xlsx', 'xls'],
                                                      key='upload_file_load_mandatory_modules_grades')
 
+
+    # wenn man eine Excel-Datei ausgewählt hat
     if upload_file_load_mandatory_modules_grades:
         # Eine horizontale zwei Pixel Linie hinzufügen
         draw_line(2)
@@ -74,6 +77,7 @@ def run_data_loading_student_mandatory_modules_grades_data(language_index,data_t
     #  Eine horizontale drei Pixel Linie hinzufügen
     draw_line(3)
 
+    # wenn man den Button klickt
     if st.button("Daten in die Datenbank hochladen"):
 
         if upload_file_load_mandatory_modules_grades:
