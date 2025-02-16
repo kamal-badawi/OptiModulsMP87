@@ -4,27 +4,17 @@ import Data_Loading_Root
 import Feedback_Analysis_Root
 import Model_Evaluation_Root
 import Model_Training_Root
-import Terms_of_Use
 import Data_Preview_Root
 
 
 translations_main = {
-    0: ["Please confirm that you accept the terms and conditions.",
-        "Bitte bestätigen Sie, dass Sie die Bedingungen und Konditionen akzeptieren.",
-        "Si prega di confermare di accettare i termini e le condizioni.",
-        "Veuillez confirmer que vous acceptez les termes et conditions.",
-        "Confirme que acepta los términos y condiciones.", "Por favor, confirme que aceita os termos e condições.",
-        "Vänligen bekräfta att du accepterar villkoren.", "Vennligst bekreft at du godtar vilkårene.",
-        "Bekræft venligst, at du accepterer betingelserne.", "Proszę potwierdzić, że akceptujesz warunki.",
-        "Пожалуйста, подтвердите, что вы принимаете условия.", "Будь ласка, підтвердіть, що ви приймаєте умови."],
-    1: ["Language", "Sprache", "Lingua", "Langue", "Idioma", "Idioma", "Språk", "Språk", "Sprog", "Język", "Язык",
+    0: ["Language", "Sprache", "Lingua", "Langue", "Idioma", "Idioma", "Språk", "Språk", "Sprog", "Język", "Язык",
         "Мова"],
-    2: ["Terms of Use", "Nutzungsbedingungen", "Termini di utilizzo", "Conditions d'utilisation", "Términos de uso", "Termos de uso", "Användarvillkor", "Bruksvilkår", "Brugsvilkår", "Warunki użytkowania", "Условия использования", "Умови використання"],
-    3: ["Data Loading", "Datenladen", "Caricamento dati", "Chargement des données", "Carga de datos", "Carregamento de dados", "Datainläsning", "Datainnhenting", "Dataindlæsning", "Ładowanie danych", "Загрузка данных", "Завантаження даних"],
-    4: ["Data Preview", "Datenvorschau", "Anteprima dei dati", "Aperçu des données", "Vista previa de datos", "Pré-visualização de dados", "Dataförhandsgranskning", "Datavisning", "Datavisning", "Podgląd danych", "Предпросмотр данных", "Попередній перегляд даних"],
-    5: ["Model-Training", "Modelltraining", "Addestramento del modello", "Entraînement du modèle", "Entrenamiento del modelo", "Treinamento do modelo", "Modellträning", "Modelltrening", "Modelltræning", "Trenowanie modelu", "Обучение модели", "Навчання моделі"],
-    6: ["Model-Evaluation", "Modellbewertung", "Valutazione del modello", "Évaluation du modèle", "Evaluación del modelo", "Avaliação do modelo", "Modellevaluering", "Modellvurdering", "Modellevaluering", "Ocena modelu", "Оценка модели", "Оцінювання моделі"],
-    7: ["Feedback Analyse", "Feedback-Analyse", "Analisi del feedback", "Analyse des retours", "Análisis de comentarios", "Análise de feedback", "Feedback-analys", "Tilbakemeldingsanalyse", "Feedback-analyse", "Analiza opinii", "Анализ отзывов", "Аналіз зворотного зв'язку"],
+    1: ["Data Loading", "Datenladen", "Caricamento dati", "Chargement des données", "Carga de datos", "Carregamento de dados", "Datainläsning", "Datainnhenting", "Dataindlæsning", "Ładowanie danych", "Загрузка данных", "Завантаження даних"],
+    2: ["Data Preview", "Datenvorschau", "Anteprima dei dati", "Aperçu des données", "Vista previa de datos", "Pré-visualização de dados", "Dataförhandsgranskning", "Datavisning", "Datavisning", "Podgląd danych", "Предпросмотр данных", "Попередній перегляд даних"],
+    3: ["Model-Training", "Modelltraining", "Addestramento del modello", "Entraînement du modèle", "Entrenamiento del modelo", "Treinamento do modelo", "Modellträning", "Modelltrening", "Modelltræning", "Trenowanie modelu", "Обучение модели", "Навчання моделі"],
+    4: ["Model-Evaluation", "Modellbewertung", "Valutazione del modello", "Évaluation du modèle", "Evaluación del modelo", "Avaliação do modelo", "Modellevaluering", "Modellvurdering", "Modellevaluering", "Ocena modelu", "Оценка модели", "Оцінювання моделі"],
+    5: ["Feedback Analyse", "Feedback-Analyse", "Analisi del feedback", "Analyse des retours", "Análisis de comentarios", "Análise de feedback", "Feedback-analys", "Tilbakemeldingsanalyse", "Feedback-analyse", "Analiza opinii", "Анализ отзывов", "Аналіз зворотного зв'язку"],
 
 }
 
@@ -61,7 +51,7 @@ language_value = st.session_state.language_value
 
 
 if 'top_nav_value' not in st.session_state:
-    st.session_state.top_nav_value = translations_main.get(2)[language_index]
+    st.session_state.top_nav_value = translations_main.get(1)[language_index]
 
 top_nav_value = st.session_state.top_nav_value
 
@@ -122,12 +112,12 @@ options = {
 }
 
 pages = [
+        f'{translations_main.get(1)[language_index]}',
         f'{translations_main.get(2)[language_index]}',
         f'{translations_main.get(3)[language_index]}',
         f'{translations_main.get(4)[language_index]}',
-        f'{translations_main.get(5)[language_index]}',
-        f'{translations_main.get(6)[language_index]}',
-        f'{translations_main.get(7)[language_index]}'
+        f'{translations_main.get(5)[language_index]}'
+
          ]
 
 
@@ -175,44 +165,42 @@ options = list(language_dict.keys())
 # Navigationsleiste erstellen
 logo_column, text_language_column, drop_down_language_column= st.columns([12.5,1,1.4])
 with logo_column:
-    if str(navigation_bar_top) != f'{translations_main.get(2)[language_index]}':
 
-        # Logo
-        hover_style = """
-            <style>
-            .logo {
-                transition: opacity 0.8s ease;
-                animation: skalieren 1s infinite linear;
-            }
-            @keyframes skalieren {
-                    0% {
-            transform: scale(1, 1);
-          }
-          50% {
-            transform: scale(1.1, 1.1);
-          }
-          100% {
-            transform: scale(1, 1);
-          }
-            }
-    
-            </style>
-        """
+    # Logo
+    hover_style = """
+        <style>
+        .logo {
+            transition: opacity 0.8s ease;
+            animation: skalieren 1s infinite linear;
+        }
+        @keyframes skalieren {
+                0% {
+        transform: scale(1, 1);
+      }
+      50% {
+        transform: scale(1.1, 1.1);
+      }
+      100% {
+        transform: scale(1, 1);
+      }
+        }
 
-        # Apply the custom CSS
-        st.markdown(hover_style, unsafe_allow_html=True)
+        </style>
+    """
 
-        st.markdown(
-            '<div style="text-align: left;"><img src="https://i.postimg.cc/sgD9f7JH/Opti-Moduls.png" class="logo" width="100"></div>',
-            unsafe_allow_html=True
-        )
-    else:
-        pass
+    # Apply the custom CSS
+    st.markdown(hover_style, unsafe_allow_html=True)
+
+    st.markdown(
+        '<div style="text-align: left;"><img src="https://i.postimg.cc/sgD9f7JH/Opti-Moduls.png" class="logo" width="100"></div>',
+        unsafe_allow_html=True
+    )
+
 
 with text_language_column:
     st.write('')
     st.write('')
-    st.write(f'**{translations_main.get(1)[language_index]}:** ')
+    st.write(f'**{translations_main.get(0)[language_index]}:** ')
 
 with drop_down_language_column:
     selected_language = st.selectbox('',
@@ -253,53 +241,36 @@ if st.session_state.top_nav_value != str(navigation_bar_top):
 
 
 
-#Wenn es nicht akzeptiert wurde, zeige die Warnung
-#Bei Terms of Use zeige es nicht
-#get the Agreemen-Value from Terms of Use checkbox
-if 'agree' not in st.session_state:
-    agree = False
-else:
-    agree =  st.session_state.agree
-
-
-if not agree and str(navigation_bar_top) != f'{translations_main.get(2)[language_index]}':
-    for i in range(50):
-        st.write('')
-
-    st.warning(f'{translations_main.get(0)[language_index]}')
-
-else:
-    # "Terms of Use"
-    if navigation_bar_top == f'{translations_main.get(2)[language_index]}':
-        Terms_of_Use.run_terms_of_use(language_index)
 
 
 
-    # "Data Loading"
-    if navigation_bar_top == f'{translations_main.get(3)[language_index]}':
-        Data_Loading_Root.run_data_loading_root(language_index,
+
+
+# "Data Loading"
+if navigation_bar_top == f'{translations_main.get(1)[language_index]}':
+    Data_Loading_Root.run_data_loading_root(language_index,
+                                  f'{translations_main.get(1)[language_index]}')
+
+# "Data Preview"
+if navigation_bar_top == f'{translations_main.get(2)[language_index]}':
+    Data_Preview_Root.run_data_preview_root(language_index,
+                                  f'{translations_main.get(2)[language_index]}')
+
+# "Model Training"
+if navigation_bar_top == f'{translations_main.get(3)[language_index]}':
+    Model_Training_Root.run_model_training_root(language_index,
                                       f'{translations_main.get(3)[language_index]}')
 
-    # "Data Preview"
-    if navigation_bar_top == f'{translations_main.get(4)[language_index]}':
-        Data_Preview_Root.run_data_preview_root(language_index,
-                                      f'{translations_main.get(4)[language_index]}')
 
-    # "Model Training"
-    if navigation_bar_top == f'{translations_main.get(5)[language_index]}':
-        Model_Training_Root.run_model_training_root(language_index,
-                                          f'{translations_main.get(5)[language_index]}')
+# "Model Evaluation"
+if navigation_bar_top == f'{translations_main.get(4)[language_index]}':
+    Model_Evaluation_Root.run_model_evaluation_root(language_index,
+                                          f'{translations_main.get(4)[language_index]}')
 
-
-    # "Model Evaluation"
-    if navigation_bar_top == f'{translations_main.get(6)[language_index]}':
-        Model_Evaluation_Root.run_model_evaluation_root(language_index,
-                                              f'{translations_main.get(6)[language_index]}')
-
-    # "Feedback Analysis"
-    if navigation_bar_top == f'{translations_main.get(7)[language_index]}':
-        Feedback_Analysis_Root.run_feedback_analysis_root(language_index,
-                                                f'{translations_main.get(7)[language_index]}')
+# "Feedback Analysis"
+if navigation_bar_top == f'{translations_main.get(5)[language_index]}':
+    Feedback_Analysis_Root.run_feedback_analysis_root(language_index,
+                                            f'{translations_main.get(5)[language_index]}')
 
 
 
