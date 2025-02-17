@@ -30,6 +30,7 @@ def run_feedback_analysis_root(language_index,title):
             feedbacks = pd.read_sql_query(f'''
                     select  * from students_feedback_data
                     ''', connection)
+
             feedbacks['date'] = pd.to_datetime(feedbacks['date']).dt.date
 
             feedbacks = feedbacks[
@@ -74,7 +75,7 @@ def run_feedback_analysis_root(language_index,title):
     from datetime import datetime
 
     current_date = datetime.today().date()
-    current_time = datetime.now().time()
+    current_time = datetime.now().time().replace(microsecond=0)
     load_min_date = load_min_date()
 
     # Freitext-Kommentare der Nutzer als Feedback
@@ -121,9 +122,8 @@ def run_feedback_analysis_root(language_index,title):
 
     # Filtere nach Datum und Uhrzeit
     feedbacks = feedbacks[
-          # Alle Einträge vor dem heutigen Datum
-        ((feedbacks['date'] <= current_date) & (feedbacks['time'] <= current_time))
-        # Einträge von heute bis zur aktuellen Zeit
+        (feedbacks['date'] < current_date) |  # Vorherige Tage immer einschließen
+        ((feedbacks['date'] == current_date) & (feedbacks['time'] <= current_time))  # Heute bis zur aktuellen Zeit
         ]
 
     st.write(feedbacks)
