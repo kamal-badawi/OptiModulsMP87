@@ -42,10 +42,10 @@ def run_model_evaluation_strengths_prediction(language_index):
 
 
     # y_test laden
-    y_test = get_data(r'../Modellbewertung/Stärkenprognose/y_test.xlsx')
+    y_test = get_data(r'../Model-Evaluation/Strengths-Prediction/y_test_strengths_preditcion.xlsx')
 
     # y_pred laden
-    y_pred = get_data(r'../Modellbewertung/Stärkenprognose/y_pred.xlsx')
+    y_pred = get_data(r'../Model-Evaluation/Strengths-Prediction/y_pred_strengths_preditcion.xlsx')
 
     # Berechnung der Metriken
     mse = mean_squared_error(y_test, y_pred)

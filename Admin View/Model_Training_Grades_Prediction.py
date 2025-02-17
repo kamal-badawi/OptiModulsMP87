@@ -351,12 +351,12 @@ def run_model_training_grades_prediction(language_index):
         # y_test  lokal speichern
         y_test = y_test.reset_index(drop=True)
         #st.write(y_test.isnull().sum())
-        y_test.to_excel(r'../Modellbewertung/Notenprognose/y_test.xlsx')
+        y_test.to_excel(r'../Model-Evaluation/Grades-Prediction/y_test_grades_preditcion.xlsx')
 
         # y_pred  lokal speichern
         y_pred = pd.DataFrame(y_pred, columns=y_test.columns)
         #st.write(y_pred.isnull().sum())
-        y_pred.to_excel(r'../Modellbewertung/Notenprognose/y_pred.xlsx')
+        y_pred.to_excel(r'../Model-Evaluation/Grades-Prediction/y_pred_grades_preditcion.xlsx')
 
 
         st.success('Das Modell zur Notenprognose wurde erfolgreich trainiert und ist einsatzbereit')

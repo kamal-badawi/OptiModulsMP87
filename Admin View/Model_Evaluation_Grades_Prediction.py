@@ -41,10 +41,10 @@ def run_model_evaluation_grades_prediction(language_index):
 
 
     # y_test laden
-    y_test = get_data(r'../Modellbewertung/Notenprognose/y_test.xlsx')
+    y_test = get_data(r'../Model-Evaluation/Grades-Prediction/y_test_grades_preditcion.xlsx')
 
     # y_pred laden
-    y_pred = get_data(r'../Modellbewertung/Notenprognose/y_pred.xlsx')
+    y_pred = get_data(r'../Model-Evaluation/Grades-Prediction/y_pred_grades_preditcion.xlsx')
 
     # Berechnung der Metriken
     mse = mean_squared_error(y_test, y_pred)

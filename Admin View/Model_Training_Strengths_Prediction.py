@@ -342,11 +342,11 @@ def run_model_training_strenghts_prediction(language_index):
         y_pred = grid_search.predict(X_test)
 
         y_test = y_test.reset_index(drop=True)
-        y_test.to_excel(r'../Modellbewertung/Stärkenprognose/y_test.xlsx')
+        y_test.to_excel(r'../Model-Evaluation/Strengths-Prediction/y_test_strengths_preditcion.xlsx')
 
         # y_pred  lokal speichern
         y_pred = pd.DataFrame(y_pred, columns=y_test.columns)
-        y_pred.to_excel(r'../Modellbewertung/Stärkenprognose/y_pred.xlsx')
+        y_pred.to_excel(r'../Model-Evaluation/Strengths-Prediction/y_pred_strengths_preditcion.xlsx')
 
         st.success('Das Modell zur Stärkenprognose wurde erfolgreich trainiert und ist einsatzbereit')
     # Footer importieren
