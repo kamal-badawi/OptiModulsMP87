@@ -1,6 +1,6 @@
 import subprocess
 
-# Definiere den PowerShell-Befehle
+# Definiere die PowerShell-Befehle
 commands = [
     r"cd D:\Python_Projekte\OptiModuls_MP_87\Admin View",
     r"py -m streamlit run Main_Admin_View.py"
