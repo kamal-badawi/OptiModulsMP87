@@ -189,7 +189,7 @@ def run_model_training_grades_prediction(language_index):
                                  columns=X_columns)
 
         # Speichere den Imputer lokal  (Features Imputer)
-        joblib.dump(imputer_X, r'../Imputers/imputer_X_grades_prediction.pkl')
+        joblib.dump(imputer_X, r'../Imputers/Grades-Prediction/imputer_X_grades_prediction.pkl')
 
         # Features-Imputed
         st.markdown(
@@ -224,7 +224,7 @@ def run_model_training_grades_prediction(language_index):
                                  columns=X_y_columns).loc[:,y_columns]
 
         # Speichere den Imputer lokal (Targets Imputer)
-        joblib.dump(imputer_y, r'../Imputers/imputer_y_grades_prediction.pkl')
+        joblib.dump(imputer_y, r'../Imputers/Grades-Prediction/imputer_y_grades_prediction.pkl')
 
         # Targets-Imputed
         st.markdown(
@@ -251,8 +251,8 @@ def run_model_training_grades_prediction(language_index):
         X_scaled = pd.DataFrame(scaler_X.transform(X_imputed),
                                 columns=X_columns)
 
-        # Speichere den Scaler lokal  (Features Imputer)
-        joblib.dump(scaler_X, r'../Scalers/scaler_X_grades_prediction.pkl')
+        # Speichere den Scaler lokal  (Features Scaler)
+        joblib.dump(scaler_X, r'../Scalers/Grades-Prediction/scaler_X_grades_prediction.pkl')
 
         # Features-Scaled
         st.markdown(
@@ -279,8 +279,8 @@ def run_model_training_grades_prediction(language_index):
         y_scaled = pd.DataFrame(scaler_y.transform(y_imputed),
                                 columns=y_columns)
 
-        # Speichere den Scaler lokal  (Targets Imputer)
-        joblib.dump(scaler_y, r'../Scalers/scaler_y_grades_prediction.pkl')
+        # Speichere den Scaler lokal  (Targets Scaler)
+        joblib.dump(scaler_y, r'../Scalers/Grades-Prediction/scaler_y_grades_prediction.pkl')
 
         # Targets-Scaled
         st.markdown(
