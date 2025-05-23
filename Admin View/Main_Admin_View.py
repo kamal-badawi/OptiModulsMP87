@@ -5,6 +5,7 @@ import Feedback_Analysis_Root
 import Model_Evaluation_Root
 import Model_Training_Root
 import Data_Preview_Root
+import Completion
 
 # Header-Werte mit Übersetzungen
 translations_main = {
@@ -15,7 +16,7 @@ translations_main = {
     3: ["Model-Training", "Modelltraining", "Addestramento del modello", "Entraînement du modèle", "Entrenamiento del modelo", "Treinamento do modelo", "Modellträning", "Modelltrening", "Modelltræning", "Trenowanie modelu", "Обучение модели", "Навчання моделі"],
     4: ["Model-Evaluation", "Modellbewertung", "Valutazione del modello", "Évaluation du modèle", "Evaluación del modelo", "Avaliação do modelo", "Modellevaluering", "Modellvurdering", "Modellevaluering", "Ocena modelu", "Оценка модели", "Оцінювання моделі"],
     5: ["Feedback Analyse", "Feedback-Analyse", "Analisi del feedback", "Analyse des retours", "Análisis de comentarios", "Análise de feedback", "Feedback-analys", "Tilbakemeldingsanalyse", "Feedback-analyse", "Analiza opinii", "Анализ отзывов", "Аналіз зворотного зв'язку"],
-
+    6: ["Completion",  "Abschluss","Completamento", "Achèvement","Finalización", "Conclusão", "Slutförande","Fullføring","Fuldførelse","Zakończenie","Завершение","Завершення"]
 }
 
 
@@ -117,7 +118,8 @@ pages = [
         f'{translations_main.get(2)[language_index]}',
         f'{translations_main.get(3)[language_index]}',
         f'{translations_main.get(4)[language_index]}',
-        f'{translations_main.get(5)[language_index]}'
+        f'{translations_main.get(5)[language_index]}',
+        f'{translations_main.get(6)[language_index]}'
 
          ]
 
@@ -260,6 +262,11 @@ if navigation_bar_top == f'{translations_main.get(5)[language_index]}':
     Feedback_Analysis_Root.run_feedback_analysis_root(language_index,
                                             f'{translations_main.get(5)[language_index]}')
 
+
+# "Completion"
+if navigation_bar_top == f'{translations_main.get(6)[language_index]}':
+    Completion.run_completion(language_index,
+                                            f'{translations_main.get(6)[language_index]}')
 
 
 
