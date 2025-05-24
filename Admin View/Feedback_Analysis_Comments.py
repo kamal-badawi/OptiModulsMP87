@@ -1,5 +1,6 @@
-def run_feedback_comments(language_index,feedbacks):
+def run_feedback_comments(language_index,feedbacks,  feedback_date_from, feedback_date_to):
     import streamlit as st
+    import google.generativeai as genai
     import pandas as pd
     import sqlite3
     import Process_Button_Styling
@@ -14,6 +15,37 @@ def run_feedback_comments(language_index,feedbacks):
     # Erstelle eine dicke Linie Funktion (dashed)
     def draw_dashed_line(groesse):
         st.markdown(f"<hr style='border: {groesse}px dashed black;'>", unsafe_allow_html=True)
+
+        # Fragen erstellen, um die Kompetenzen festzustellen.
+
+    @st.cache_resource
+    def create_action_recommendations(comments,  feedback_date_from, feedback_date_to):
+        # Lese den Key aus der Lokalen-Datei
+        with open(r'../Google Gemini Key/API_KEY.txt', mode='r', encoding='utf-8') as file:
+            API_KEY = file.read()
+
+        genai.configure(api_key=API_KEY)
+
+        prompt = f"""
+        Du bist ein erfahrener Data Analyst und unterstützt die Technische Hochschule Mittelhessen bei der Weiterentwicklung des KI-gestützten Systems "OptiModuls".
+
+        Deine Aufgabe besteht darin, die folgenden Kommentare von Studierenden aus dem Zeitraum {feedback_date_from} bis {feedback_date_to} zu analysieren:
+        {comments}
+
+        Leite auf Basis dieser Kommentare konkrete Handlungsempfehlungen für die Hochschule ab.
+
+        Hintergrund zu OptiModuls:
+        OptiModuls ist ein KI-gestütztes System, das Studierende bei der Auswahl geeigneter Wahlpflichtfächer unterstützt. 
+        Es kann auf Basis der bisherigen Leistungen in Pflichtfächern die Noten in Wahlpflichtfächern prognostizieren sowie individuelle Stärken erkennen.
+        Darüber hinaus schlägt es passende Stellenangebote (z. B. über LinkedIn) vor und identifiziert Kompetenzen der Studierenden durch gezielte Fragen.
+
+        Bitte analysiere die Kommentare sorgfältig und gib praxisnahe Empfehlungen zur Verbesserung von OptiModuls sowie zur Steigerung der Zufriedenheit der Studierenden.
+        """
+
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        response = model.generate_content(prompt)
+
+        return response.text
 
     try:
 
@@ -99,6 +131,7 @@ def run_feedback_comments(language_index,feedbacks):
                 st.markdown(answers_value)
 
 
+
             #st.markdown(f"**{row['date']}   {row['time']}:** {row['feedback_text']} (**Bewertung:** <span style='color: gold;'>{row['count_of_feedback_stars'] * '★'}</span>{(5- row['count_of_feedback_stars']) * '★'} | **NPS:** <span style='color: gold;'>{row['nps_score'] * '⬤'}</span> {(10- row['nps_score']) * '⬤'} | **Stimmungs-Score:** {sentiment_score} | **Antworten-Score:** 👍 ✖ {answers_score}  👎 ✖ {(15- answers_score)})", unsafe_allow_html=True)
 
             if counter < df_length:
@@ -106,7 +139,25 @@ def run_feedback_comments(language_index,feedbacks):
                 draw_dashed_line(1)
 
 
+        # Gemini Handlungsempfehlungen
+        #  Eine horizontale 1-Pixel Linie hinzufügen
+        draw_line(1)
+        # Handlungsempfehlungen
+        st.markdown(
+            f"""
+             <div style='text-align: center; font-weight: bold; font-size: 1.2vw;'>
+                 Handlungsempfehlungen
+             </div>
+                 """,
+            unsafe_allow_html=True
+        )
+        st.write('')
+        st.write('')
+        st.write('')
 
+        comments = feedbacks['feedback_text'].to_list()
+        action_recommendations = create_action_recommendations(comments,  feedback_date_from, feedback_date_to)
+        st.write(action_recommendations)
 
 
     except:

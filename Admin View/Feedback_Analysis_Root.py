@@ -264,5 +264,5 @@ def run_feedback_analysis_root(language_index,title):
         )
 
         # Seite aufrufen
-        Feedback_Analysis_Comments.run_feedback_comments(language_index, feedbacks)
+        Feedback_Analysis_Comments.run_feedback_comments(language_index, feedbacks, feedback_date_from, feedback_date_to)
 

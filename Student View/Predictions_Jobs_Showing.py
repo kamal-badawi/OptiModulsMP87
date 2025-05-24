@@ -1,4 +1,6 @@
-
+# WICHTIGER HINWEIS:
+# Für die Erstellung von der Job-Listen (Linkedin) gilt das folgende Video als Grundlage
+# https://www.youtube.com/watch?v=-H-JCgvV0z8&list=LL&index=3
 def run_predictions_jobs_showing(language_index ,all_unique_jobs, job_location ,posted_time_dict ,selected_posted_time):
     import streamlit as st
     import requests

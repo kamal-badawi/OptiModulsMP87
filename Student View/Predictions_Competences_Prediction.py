@@ -1,4 +1,4 @@
-#WICHTIG: Die Methoden parse_text_to_lines und create_pdf wurden mit ChatGPT erzeugt
+# WICHTIG: Die Methoden download_pdf, parse_text_to_lines und create_pdf wurden mit ChatGPT erzeugt
 def run_predictions_competences_prediction(language_index):
     import streamlit as st
     import google.generativeai as genai
@@ -15,8 +15,7 @@ def run_predictions_competences_prediction(language_index):
     def draw_line(groesse):
         st.markdown(f"<hr style='border: {groesse}px solid black;'>", unsafe_allow_html=True)
 
-
-    def down_load_pdf(pdf_buffer,  created_datetime_download):
+    def download_pdf(pdf_buffer, created_datetime_download):
         # Get user's home directory
         home_dir = os.path.expanduser('~')
 
@@ -39,13 +38,10 @@ def run_predictions_competences_prediction(language_index):
         current_line = []
         current_width = 0
 
-
-
         for paragraph in text.split('\n'):
             if paragraph.strip() == "--------":
                 lines.extend([[], [], [], []])  # 4 Leerzeilen
                 continue
-
 
             if paragraph.strip() == "----":
                 lines.extend([[], []])  # 2 Leerzeile
@@ -54,9 +50,6 @@ def run_predictions_competences_prediction(language_index):
             if paragraph.strip() == "--":
                 lines.extend([[]])  # 1 Leerzeile
                 continue
-
-
-
 
             tokens = re.split(r'(\*\*.*?\*\*|\s+)', paragraph)
             line = []
@@ -68,7 +61,7 @@ def run_predictions_competences_prediction(language_index):
 
                 is_bold = token.startswith("**") and token.endswith("**")
 
-                display_text = token[2:-2]  if is_bold  else token
+                display_text = token[2:-2] if is_bold else token
 
                 font = "Helvetica-Bold" if is_bold else font_name
                 text_width = c.stringWidth(display_text, font, 14 if is_bold else 12)
@@ -110,7 +103,7 @@ def run_predictions_competences_prediction(language_index):
         line_height = 14
 
         # Bild mit fester Größe 200x100 px zeichnen (oben links)
-        c.drawImage(logo_image, (max_width/2)-100+x, y - 100, width=200, height=100)
+        c.drawImage(logo_image, (max_width / 2) - 100 + x, y - 100, width=200, height=100)
         y -= (150 + 10)  # Platz unter dem Bild
 
         # Jetzt den Header-Text einfügen, immer Platz vorher prüfen
@@ -133,11 +126,10 @@ def run_predictions_competences_prediction(language_index):
 
         # --- Trennlinie---
         def create_sep_line(y):
-            if y -  line_height < margin:
+            if y - line_height < margin:
                 c.showPage()
                 y = height - margin
                 c.setFont('Helvetica', 12)
-
 
             y -= line_height
             c.setDash(3, 2)  # gestrichelte Linie: 3 Punkte Linie, 2 Punkte Lücke
@@ -146,9 +138,7 @@ def run_predictions_competences_prediction(language_index):
             y -= line_height
             return y
 
-        y = create_sep_line(y)-line_height
-
-
+        y = create_sep_line(y) - line_height
 
         # Text vorbereiten (parse_text_to_lines musst du selbst definiert haben)
         lines = parse_text_to_lines(text, c, max_width)
@@ -205,7 +195,7 @@ def run_predictions_competences_prediction(language_index):
             y = height - margin
 
         y -= 60
-        c.drawImage(signature_image, x+40, y, width=100, height=50)
+        c.drawImage(signature_image, x + 40, y, width=100, height=50)
 
         if y - (line_height) < margin:
             c.showPage()
@@ -247,17 +237,17 @@ def run_predictions_competences_prediction(language_index):
 
         4) Kommunikations- und Schnittstellenkompetenz 
            (z. B. Vermittlung zwischen IT und Fachabteilungen, Anforderungsanalyse, Präsentationstechniken)
-        
-        
+
+
         Erstelle mir **10 gezielten Fragen**, die helfen, diese Kompetenzen möglichst gut zu erfassen.
         Die Fragen sind durch <<<>>> getrennt
-        
+
         bitte immer neue kreative Fragen stellen
-        
+
         Der Nutzer kann darauf nur mit einem Text (minimal 100 Zeichen) Antworten, also kein Audio, Zeichnung oder Ähnliches
-        
+
         Die Fragen sollen möglichst praxisnah, verständlich und differenzierend formuliert sein
-        
+
         bitte nur die Fragen zurückgeben und nicht mehr, z.B. Frage 1 <<<>>> Frage 2 <<<>>> Frage ... <<<>>> Frage 10
         """
 
@@ -375,7 +365,7 @@ def run_predictions_competences_prediction(language_index):
         **Hinweis:**  
         - Achte auf Klarheit, Differenzierung, Objektivität und akademisches Niveau bei Beurteilung und Begründung.
         - Bei der Begründung sprechen Sie den Studenten direkt mit Sie an, z. B. Sie haben ...
-        
+
         """
 
         model = genai.GenerativeModel("gemini-1.5-flash")
@@ -383,10 +373,9 @@ def run_predictions_competences_prediction(language_index):
 
         return response.text
 
-
     try:
         level = st.selectbox(label='Wählen Sie den Studenten Level aus (Dummy)',
-                             options= ['Sehr schlecht', 'Mittelmäßig', 'Ausgezeichnet'],
+                             options=['Sehr schlecht', 'Mittelmäßig', 'Ausgezeichnet'],
                              key='student_level')
 
         # Eine horizontale ein Pixel Linie hinzufügen
@@ -414,18 +403,19 @@ def run_predictions_competences_prediction(language_index):
 
             dummy_answers_list.append(dummy_answer)
 
-
         question_number = 1
         for question in questions_list:
-            answer = st.text_area(label= f'{question_number}). {question}',
-                                  height =3,
+            answer = st.text_area(label=f'{question_number}). {question}',
+                                  height=3,
                                   placeholder='Schreiben Sie etwas... (mind. 100 Zeichen)',
-                                  value=dummy_answers_list[question_number-1][1:] if dummy_answers_list[question_number-1].startswith('\n') else dummy_answers_list[question_number-1],
-                                  key= f'{question_number})_competence_question')
+                                  value=dummy_answers_list[question_number - 1][1:] if dummy_answers_list[
+                                      question_number - 1].startswith('\n') else dummy_answers_list[
+                                      question_number - 1],
+                                  key=f'{question_number})_competence_question')
             if len(answer) > 100:
                 questions_and_answers[question[1:] if question.startswith('\n') else question] = answer
                 answers_list.append(answer)
-            question_number +=1
+            question_number += 1
 
         # Eine horizontale ein Pixel Linie hinzufügen
         draw_line(1)
@@ -438,7 +428,7 @@ def run_predictions_competences_prediction(language_index):
             email_address = st.text_input("Geben Sie Ihre E-Mail-Adresse ein")
             if email_address:
                 if re.match(r"[^@]+@[^@]+\.[^@]+", email_address):
-                    valid_email= True
+                    valid_email = True
                     st.success("Gültige E-Mail-Adresse")
                 else:
                     valid_email = False
@@ -447,28 +437,21 @@ def run_predictions_competences_prediction(language_index):
                 valid_email = False
                 st.error("Keine E-Mail-Adresse wurde eingegeben")
 
-
         # Eine horizontale drei Pixel Linie hinzufügen
         draw_line(3)
-
-
-
-
 
         if st.button('Kompetenzen bestimmen') and valid_email:
             if len(answers_list) == len(questions_list):
 
-
-
-
                 text_from_google_gemini = figure_out_me_competences(questions_and_answers)
 
-                pdf_buffer_download,pdf_buffer_send_mail, created_datetime_download, created_datetime_send_mail = create_pdf(text_from_google_gemini)
-                down_load_pdf(pdf_buffer_download, created_datetime_download)
-
+                pdf_buffer_download, pdf_buffer_send_mail, created_datetime_download, created_datetime_send_mail = create_pdf(
+                    text_from_google_gemini)
+                download_pdf(pdf_buffer_download, created_datetime_download)
 
                 if send_mail_cb:
-                    Send_Mail.send_email_run(email_address,pdf_buffer_send_mail,created_datetime_send_mail,created_datetime_download)
+                    Send_Mail.send_email_run(email_address, pdf_buffer_send_mail, created_datetime_send_mail,
+                                             created_datetime_download)
                     st.success('Das Ergebnis wurde erfolgreich per Mail versendet und lokal gespeichert')
 
                 else:
@@ -491,18 +474,6 @@ def run_predictions_competences_prediction(language_index):
         draw_line(1)
         st.warning(f'Fehler {e}')
 
-
-
-
-
-
-
     # Footer importieren
     import Footer as ft
     ft.run_footer(language_index=language_index)
-
-
-
-
-
-
