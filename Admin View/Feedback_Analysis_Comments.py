@@ -1,6 +1,9 @@
 def run_feedback_comments(language_index,feedbacks,  feedback_date_from, feedback_date_to):
     import streamlit as st
     import google.generativeai as genai
+    from dotenv import load_dotenv
+    import os
+    from pathlib import Path
     import pandas as pd
     import sqlite3
     import Process_Button_Styling
@@ -20,9 +23,9 @@ def run_feedback_comments(language_index,feedbacks,  feedback_date_from, feedbac
 
     @st.cache_resource
     def create_action_recommendations(comments,  feedback_date_from, feedback_date_to):
-        # Lese den Key aus der Lokalen-Datei
-        with open(r'../Google Gemini Key/API_KEY.txt', mode='r', encoding='utf-8') as file:
-            API_KEY = file.read()
+        env_path = Path(__file__).resolve().parent.parent / '.env'
+        load_dotenv(dotenv_path=env_path)
+        API_KEY = os.getenv("GOOGLE_GEMINI_API_KEY")
 
         genai.configure(api_key=API_KEY)
 

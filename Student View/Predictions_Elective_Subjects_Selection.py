@@ -3,6 +3,9 @@ def run_predictions_elective_subjects_selection(language_index):
     import streamlit as st
     import pandas as pd
     import google.generativeai as genai
+    from dotenv import load_dotenv
+    import os
+    from pathlib import Path
     from sentence_transformers import SentenceTransformer
     from sklearn.metrics.pairwise import cosine_similarity
     import Background_Style as bs
@@ -52,9 +55,11 @@ def run_predictions_elective_subjects_selection(language_index):
         elective_modules.columns = ['Wahlpflichtmodul', 'Voraussetzungen (Stärken)', 'Semester (Sommer- oder Winter-Semester)', 'Sprache (z. B. Englisch, Deutsch, etc.)',
                                     'Lesitungsart (z. B. Klausur, Projekt, Seminar, etc.)', 'Berufliche Ziele', 'Inhalt','Dozent']
 
-        # Lese den Key aus der Lokalen-Datei
-        with open(r'../Google Gemini Key/API_KEY.txt', mode='r', encoding='utf-8') as file:
-            API_KEY = file.read()
+
+
+        env_path = Path(__file__).resolve().parent.parent / '.env'
+        load_dotenv(dotenv_path=env_path)
+        API_KEY = os.getenv("GOOGLE_GEMINI_API_KEY")
 
         genai.configure(api_key=API_KEY)
 

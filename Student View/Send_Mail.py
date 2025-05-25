@@ -6,13 +6,18 @@ def send_email_run(to_email, attachment, created_datetime_send_mail, created_dat
     from email.mime.base import MIMEBase
     from email import encoders
     from email.utils import formataddr
+    from dotenv import load_dotenv
+    import os
+    from pathlib import Path
 
 
-
+    env_path = Path(__file__).resolve().parent.parent / '.env'
+    load_dotenv(dotenv_path=env_path)
+    from_email = os.getenv("FROM_EMAIL")
+    smtp_password = os.getenv("FROM_EMAIL_PASSWORD")
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
-    from_email = r""
-    smtp_password = ""
+
 
     body = f'''
        Liebe Studentin, lieber Student,<br><br><br>

@@ -1,9 +1,12 @@
 # WICHTIG: Die Methoden download_pdf, parse_text_to_lines und create_pdf wurden mit ChatGPT erzeugt
+# WICHTIG: Die Gemini-Prompts (Projekt-Ebene) wurden mit ChatGPT verbessert
 def run_predictions_competences_prediction(language_index):
     import streamlit as st
     import google.generativeai as genai
-    import re
+    from dotenv import load_dotenv
     import os
+    from pathlib import Path
+    import re
     from datetime import datetime
     import Send_Mail
     import Process_Button_Styling as pbs
@@ -212,43 +215,42 @@ def run_predictions_competences_prediction(language_index):
     # Fragen erstellen, um die Kompetenzen festzustellen.
     @st.cache_resource
     def create_competences_questions():
-        # Lese den Key aus der Lokalen-Datei
-        with open(r'../Google Gemini Key/API_KEY.txt', mode='r', encoding='utf-8') as file:
-            API_KEY = file.read()
+        env_path = Path(__file__).resolve().parent.parent / '.env'
+        load_dotenv(dotenv_path=env_path)
+        API_KEY = os.getenv("GOOGLE_GEMINI_API_KEY")
 
         genai.configure(api_key=API_KEY)
 
         prompt = f"""
         Du bist ein sehr erfahrener Prof. Dr. an der Technischen Hochschule Mittelhessen 
-        und betreuen den Bachelor-Studiengang Wirtschaftsinformatik.
+        und betreust den Bachelor-Studiengang Wirtschaftsinformatik.
 
-        Ich möchte die Kompetenzen eines Studierenden anhand von 10 gezielten Fragen evaluieren.
+        Deine Aufgabe ist es, die Kompetenzen eines Studierenden anhand von **10 gezielten, praxisnahen Fragen** zu evaluieren.
 
         Die zu bewertenden Kompetenzbereiche sind:
 
-        1) Technologische Kompetenz 
+        1) Technologische Kompetenz  
            (z. B. Programmierung, Datenbanken, IT-Systeme)
 
-        2) Betriebswirtschaftliches Verständnis 
+        2) Betriebswirtschaftliches Verständnis  
            (z. B. BWL-Grundlagen, Geschäftsprozesse, Controlling)
 
-        3) Analytisch-konzeptionelle Fähigkeiten 
+        3) Analytisch-konzeptionelle Fähigkeiten  
            (z. B. Modellierung, Problemlösung, Systemdenken)
 
-        4) Kommunikations- und Schnittstellenkompetenz 
+        4) Kommunikations- und Schnittstellenkompetenz  
            (z. B. Vermittlung zwischen IT und Fachabteilungen, Anforderungsanalyse, Präsentationstechniken)
 
+        Bitte generiere **10 kreative, differenzierende und verständliche Fragen**, die diese Kompetenzbereiche möglichst vollständig abdecken. Die Fragen sollen **praxisnah** und **abwechslungsreich** sein.
 
-        Erstelle mir **10 gezielten Fragen**, die helfen, diese Kompetenzen möglichst gut zu erfassen.
-        Die Fragen sind durch <<<>>> getrennt
+        Format: Gib die Fragen **ausschließlich** zurück – getrennt durch <<<>>>  
+        Beispiel: Frage 1 <<<>>> Frage 2 <<<>>> … <<<>>> Frage 10
 
-        bitte immer neue kreative Fragen stellen
+        Weitere Anforderungen:
+        - Es sollen bei jedem Laden **neue Fragen** erzeugt werden.
+        - Die Antworten erfolgen rein textbasiert (mind. 100 Zeichen) – **kein Audio, keine Zeichnungen etc.**
+        - Keine zusätzlichen Erklärungen oder Hinweise ausgeben – **nur die Fragen**.
 
-        Der Nutzer kann darauf nur mit einem Text (minimal 100 Zeichen) Antworten, also kein Audio, Zeichnung oder Ähnliches
-
-        Die Fragen sollen möglichst praxisnah, verständlich und differenzierend formuliert sein
-
-        bitte nur die Fragen zurückgeben und nicht mehr, z.B. Frage 1 <<<>>> Frage 2 <<<>>> Frage ... <<<>>> Frage 10
         """
 
         model = genai.GenerativeModel("gemini-1.5-flash")
@@ -259,9 +261,9 @@ def run_predictions_competences_prediction(language_index):
     # Fragen erstellen, um die Kompetenzen festzustellen.
     @st.cache_resource
     def create_dummy_answers(questions_list, level):
-        # Lese den Key aus der Lokalen-Datei
-        with open(r'../Google Gemini Key/API_KEY.txt', mode='r', encoding='utf-8') as file:
-            API_KEY = file.read()
+        env_path = Path(__file__).resolve().parent.parent / '.env'
+        load_dotenv(dotenv_path=env_path)
+        API_KEY = os.getenv("GOOGLE_GEMINI_API_KEY")
 
         genai.configure(api_key=API_KEY)
 
@@ -288,9 +290,9 @@ def run_predictions_competences_prediction(language_index):
     # Die Kompetenzen in % zwischen 0 und 100% feststellen.
     @st.cache_resource
     def figure_out_me_competences(questions_and_answers):
-        # Lese den Key aus der Lokalen-Datei
-        with open(r'../Google Gemini Key/API_KEY.txt', mode='r', encoding='utf-8') as file:
-            API_KEY = file.read()
+        env_path = Path(__file__).resolve().parent.parent / '.env'
+        load_dotenv(dotenv_path=env_path)
+        API_KEY = os.getenv("GOOGLE_GEMINI_API_KEY")
 
         genai.configure(api_key=API_KEY)
 

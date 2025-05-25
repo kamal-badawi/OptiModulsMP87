@@ -1,6 +1,9 @@
 def run_predictions_strengths_prediction(language_index,sidebar_button,student_date_of_birth,student_matriculation_number,selected_tipps):
     import streamlit as st
     import google.generativeai as genai
+    from dotenv import load_dotenv
+    import os
+    from pathlib import Path
     import sqlite3
     import pandas as pd
     import joblib
@@ -74,9 +77,9 @@ def run_predictions_strengths_prediction(language_index,sidebar_button,student_d
     # Tipps geben, um meine Kenntnisse zu erweitern.
     @st.cache_resource
     def give_me_tipps(y_strengths_predicted_row,selected_tipps):
-        # Lese den Key aus der Lokalen-Datei
-        with open(r'../Google Gemini Key/API_KEY.txt', mode='r', encoding='utf-8') as file:
-            API_KEY = file.read()
+        env_path = Path(__file__).resolve().parent.parent / '.env'
+        load_dotenv(dotenv_path=env_path)
+        API_KEY = os.getenv("GOOGLE_GEMINI_API_KEY")
 
         genai.configure(api_key=API_KEY)
 
